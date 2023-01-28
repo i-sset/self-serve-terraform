@@ -49,10 +49,10 @@ resource "aws_security_group" "public_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress { 
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -67,6 +67,7 @@ resource "aws_security_group" "public_sg" {
 resource "aws_instance" "josset_instance" {
   ami           = "ami-00874d747dde814fa"
   instance_type = "t2.micro"
+  key_name      = "tf-key-pair"
 
   subnet_id                   = aws_subnet.public_subnet_1.id
   vpc_security_group_ids      = [aws_security_group.public_sg.id]
@@ -75,4 +76,18 @@ resource "aws_instance" "josset_instance" {
   tags = {
     Name = "Josset instance"
   }
+}
+
+resource "aws_key_pair" "tf-key-pair" {
+  key_name   = "tf-key-pair"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+resource "local_file" "tf-key" {
+  content         = tls_private_key.rsa.private_key_pem
+  file_permission = "0600"
+  filename        = "tf-key-pair"
 }
