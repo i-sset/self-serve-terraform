@@ -1,6 +1,6 @@
 variable "ami" {
   type        = string
-  description = "AMI ID for the EC2 Instance. us-east-1"
+  description = "AMI ID for the EC2 Instance. It uses an Ubuntu image"
   default     = "ami-00874d747dde814fa"
 
 }
