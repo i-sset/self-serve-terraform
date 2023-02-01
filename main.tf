@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "main_vpc" {
-  cidr_block = "10.2.0.0/16"
+  cidr_block = var.main_vpc_cidr
 
   tags = {
     Name = "Josset's VPC"
@@ -12,7 +12,7 @@ resource "aws_vpc" "main_vpc" {
 
 resource "aws_subnet" "public_subnet_1" {
   vpc_id     = aws_vpc.main_vpc.id
-  cidr_block = "10.2.2.0/24"
+  cidr_block = var.public_subnet_cidr
 
 }
 
@@ -46,27 +46,27 @@ resource "aws_security_group" "public_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.all_ip_cidr]
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.all_ip_cidr]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.all_ip_cidr]
   }
 }
 
 resource "aws_instance" "josset_instance" {
-  ami           = "ami-00874d747dde814fa"
-  instance_type = "t2.micro"
+  ami           = var.ami
+  instance_type = var.ami_type
   key_name      = "tf-key-pair"
 
   subnet_id                   = aws_subnet.public_subnet_1.id
@@ -79,7 +79,7 @@ resource "aws_instance" "josset_instance" {
 }
 
 resource "aws_key_pair" "tf-key-pair" {
-  key_name   = "tf-key-pair"
+  key_name   = var.tf_key_pair_name
   public_key = tls_private_key.rsa.public_key_openssh
 }
 resource "tls_private_key" "rsa" {
@@ -89,5 +89,5 @@ resource "tls_private_key" "rsa" {
 resource "local_file" "tf-key" {
   content         = tls_private_key.rsa.private_key_pem
   file_permission = "0600"
-  filename        = "tf-key-pair"
+  filename        = var.tf_key_pair_name
 }
