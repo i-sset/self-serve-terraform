@@ -23,10 +23,16 @@ variable "all_ip_cidr" {
   default     = "0.0.0.0/0"
 }
 
-variable "public_subnet_cidr" {
+variable "public_subnet1_cidr" {
   type        = string
   description = "CIDR block that represents the public subnet"
   default     = "10.2.2.0/24"
+}
+
+variable "public_subnet2_cidr" {
+  type        = string
+  description = "CIDR block that represents the public subnet"
+  default     = "10.2.3.0/24"
 }
 
 variable "main_vpc_cidr" {
