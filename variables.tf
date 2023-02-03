@@ -1,14 +1,23 @@
 variable "ami" {
   type        = string
   description = "AMI ID for the EC2 Instance. It uses an Ubuntu image"
-  default     = "ami-00874d747dde814fa"
+}
+
+variable "name_prefix" {
+  type = string
+  description = "name of the owner as prefix"
+}
+
+variable "region" {
+  type = string
+  description = "region that host all this infrastructure"
 
 }
 
 variable "ami_type" {
   type        = string
   description = "Instance type for the EC2 instance"
-  default     = "t2.micro"
+  
 }
 
 variable "tf_key_pair_name" {

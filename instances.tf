@@ -9,6 +9,6 @@ resource "aws_instance" "josset_instance" {
   user_data                   = file("start-nginx.sh")
 
   tags = {
-    Name = "Josset instance"
+    Name = "${var.name_prefix}-instance"
   }
 }

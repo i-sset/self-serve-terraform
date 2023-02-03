@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "main_asg" {
-  name = "josset-asg"
+  name = "${var.name_prefix}-asg"
 
   desired_capacity = 2
   min_size         = 2
@@ -12,7 +12,7 @@ resource "aws_autoscaling_group" "main_asg" {
 }
 
 resource "aws_launch_configuration" "default_configuration" {
-  name                        = "josset-launch-config"
+  name                        = "${var.name_prefix}-launch-config"
   image_id                    = var.ami
   instance_type               = var.ami_type
   associate_public_ip_address = true

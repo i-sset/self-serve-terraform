@@ -1,5 +1,5 @@
 resource "aws_security_group" "public_sg" {
-  name   = "public Josset SG"
+  name   = "public ${var.name_prefix} SG"
   vpc_id = aws_vpc.main_vpc.id
 
   ingress {

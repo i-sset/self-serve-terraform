@@ -1,5 +1,5 @@
 resource "aws_lb" "main_lb" {
-  name               = "josset-lb"
+  name               = "${var.name_prefix}-lb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.public_sg.id]
@@ -20,7 +20,7 @@ resource "aws_lb_listener" "lb_listener" {
 }
 
 resource "aws_lb_target_group" "lb_target_group" {
-  name     = "josset-asg"
+  name     = "${var.name_prefix}-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.main_vpc.id
