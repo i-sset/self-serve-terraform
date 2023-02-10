@@ -49,3 +49,8 @@ variable "main_vpc_cidr" {
   description = "CIDR block that the main VPC uses"
   default     = "10.2.0.0/16"
 }
+
+variable "ecr_repository_name" {
+  type = string
+  description = "Name of ECR repository"
+}
