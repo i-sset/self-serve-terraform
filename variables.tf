@@ -4,12 +4,12 @@ variable "ami" {
 }
 
 variable "name_prefix" {
-  type = string
+  type        = string
   description = "name of the owner as prefix"
 }
 
 variable "region" {
-  type = string
+  type        = string
   description = "region that host all this infrastructure"
 
 }
@@ -17,7 +17,7 @@ variable "region" {
 variable "ami_type" {
   type        = string
   description = "Instance type for the EC2 instance"
-  
+
 }
 
 variable "tf_key_pair_name" {
@@ -51,6 +51,6 @@ variable "main_vpc_cidr" {
 }
 
 variable "ecr_repository_name" {
-  type = string
+  type        = string
   description = "Name of ECR repository"
 }

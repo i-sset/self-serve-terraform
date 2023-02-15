@@ -1,8 +1,8 @@
 resource "aws_autoscaling_group" "main_asg" {
   name = "${var.name_prefix}-asg"
 
-  desired_capacity = 2
-  min_size         = 2
+  desired_capacity = 1
+  min_size         = 1
   max_size         = 3
 
   termination_policies = ["OldestInstance"]
