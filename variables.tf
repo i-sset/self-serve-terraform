@@ -14,6 +14,11 @@ variable "region" {
 
 }
 
+variable "email" {
+  type        = string
+  description = "user email"
+}
+
 variable "ami_type" {
   type        = string
   description = "Instance type for the EC2 instance"
